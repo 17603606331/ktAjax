@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <!--[if lte IE 6]>
+        
+    <![endif]-->
+
+</head>
+<body>
+    
+</body>
+<script src="ajax.js"></script>
+<script>
+    var url = 'http://120.24.162.247/api/Music?id=317921676';
+    var result = new ktAjax({
+        url:url,
+        type:"get",
+        data:{},
+        success:function(data){
+            console.log(data.response);
+        },
+        error:function(data){
+            console.log(data);
+        }
+    });
+    
+    result.send();
+</script>
+</html>
