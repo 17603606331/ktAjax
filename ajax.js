@@ -1,19 +1,19 @@
 
 var ktAjax = function (config) {
-     var defaultOption={
-         url:"",
-         data:{},
-         type:"GET",
-         header:{
+    var defaultOption = {
+        url: "",
+        data: {},
+        type: "GET",
+        headers: {
 
-         },
-         success:function(){},
-         error:function(){},
-         complet:function(){},
-     }
+        },
+        success: function () { },
+        error: function () { },
+        complet: function () { }
+    }
 
-     //合并配置参数
-     var opt = extend(defaultOption,config);
+    //合并配置参数
+    var opt = extend(defaultOption, config);
 
     /**
      * 创建xmlhttprequest对象
@@ -56,20 +56,25 @@ var ktAjax = function (config) {
                 if (xmlHR.readyState === 4) {
                     if (xmlHR.status === 200) {
                         //请求成功
-                        opt.success({response:xmlHR.response});
+                        opt.success({ response: xmlHR.response });
                     } else {
                         //请求失败
-                        opt.error({response:xmlHR});
+                        opt.error({ response: xmlHR });
                     }
                 }
             };
-            if(opt.url){
-                xmlHR.open(opt.type, opt.url, true);
+
+            //添加头信息
+            var headers = opt.headers;
+            for (var name in headers) {
+                xmlHR.setRequestHeader(name, headers[name]);
             }
             //谷歌默认头信息 兼容火狐
             xmlHR.setRequestHeader("Accept", "*");
+            if (opt.url) {
+                xmlHR.open(opt.type, opt.url, true);
+            }
             xmlHR.send(opt.data);
-
         }
     }
 
